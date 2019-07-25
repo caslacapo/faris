@@ -3,8 +3,6 @@ nmcli con mod eth0 autoconnect no
 hostnamectl set-hostname vm1.contoso.com
 echo 127.0.0.1 vm1 vm1.contoso.com >> /etc/hosts
 echo 10.0.0.101 vm2 vm2.contoso.com >> /etc/hosts
-reboot
-
 yum install targetcli -y
 targetcli
 ls
@@ -26,6 +24,5 @@ cd ../..
 exit
 firewall-cmd --add-port=3260 --permanent
 firewall-cmd --reload 
-
 systemctl enable targetcli
 systemctl start targetcli
