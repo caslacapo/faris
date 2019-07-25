@@ -3,7 +3,7 @@ nmcli con mod eth0 autoconnect no
 hostnamectl set-hostname vm1.contoso.com
 echo 127.0.0.1 vm1 vm1.contoso.com >> /etc/hosts
 yum install bind bind-utils -y
-echo "//
+echo '//
 // named.conf
 //
 // Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
@@ -75,7 +75,7 @@ zone "10.in-addr.arpa.zone" IN {
 
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";
-" > /etc/named.conf
+' > /etc/named.conf
 echo "@	IN	SOA	vm1.contoso.com. root.contoso.com. (
 						1	;Serial
 						3H	;Refresh
