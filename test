@@ -4,3 +4,28 @@ nmcli con up static
 hostnamectl set-hostname cs26-vm1.contoso.com
 echo 127.0.0.1 cs26-vm1.contoso.com cs26-vm1 >> /etc/hosts
 nmcli con mod eth0 autoconnect no
+
+install targetcli -y
+targetcli
+ls
+cd backstores
+cd block
+create block1 /dev/vdb
+cd /
+cd iscsi
+create iqn.2014-06.com.example:remotedisk1
+cd iqn.2014-06.com.example:remotedisk1/tpg1
+cd portals
+delete 0.0.0.0 3260
+create 10.0.0.100 3260
+cd ../luns
+create /backstores/block/block1
+cd ../acls
+create iqn.2014-06.com.example:vm2
+cd ../..
+exit
+firewall-cmd --add-port=3260 --permanent
+firewall-cmd --reload 
+
+systemctl enable targetcli
+systemctl start targetcli
