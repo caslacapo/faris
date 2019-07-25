@@ -1,6 +1,9 @@
+nmcli con add con-name static type ethernet ifname eth0 ip4 10.0.0.100/24 gw4 10.0.0.1 ipv4.dns 10.13.2.5,10.13.2.7 autoconnect yes
+nmcli con mod eth0 autoconnect no
+hostnamectl set-hostname vm1.contoso.com
+echo 127.0.0.1 vm1 vm1.contoso.com >> /etc/hosts
 yum install bind bind-utils -y
-echo "
-//
+echo "//
 // named.conf
 //
 // Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
@@ -89,7 +92,7 @@ echo "@	IN	SOA	vm1.contoso.com. root.contoso.com. (
 101		IN	PTR	vm2.contoso.com.
 1		IN	PTR	gateway.contoso.com.
 " > /var/named/10.in-addr.arpa.zone
-echo "@       	IN  SOA     cs26-vm1.contoso.com root.contoso.com (
+echo "@       	IN  SOA     vm1.contoso.com root.contoso.com (
 						 1     ;Serial
 						 3H    ;Refresh
 						 15M   ;Retry
@@ -98,12 +101,12 @@ echo "@       	IN  SOA     cs26-vm1.contoso.com root.contoso.com (
 )
 
 ;Name Server Information
-@      		IN  NS cs26-vm1.contoso.com
+@      		IN  NS vm1.contoso.com
 
 ;IP address of Name Server
 vm1			IN  A  10.0.0.100
-vm2			IN	A  10.0.0.101
-gateway		IN  A  10.0.0.1
+vm2			IN  A  10.0.0.101
+gateway			IN  A  10.0.0.1
 " > /var/named/contoso.com.zone
 firewall-cmd --zone=public --add-service=dns --permanent
 firewall-cmd --reload
