@@ -99,7 +99,7 @@ echo '@       	IN  SOA     vm1.contoso.com root.contoso.com (
 )
 
 ;Name Server Information
-@      		IN  NS vm1.contoso.com
+@      		IN  NS vm1.contoso.com.
 
 ;IP address of Name Server
 vm1			IN  A  10.0.0.100
