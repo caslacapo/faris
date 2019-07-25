@@ -12,15 +12,15 @@ echo "
 // configuration located in /usr/share/doc/bind-{version}/Bv9ARM.html
 
 options {
-	// listen-on port 53 { 127.0.0.1; };
 	listen-on port 53 { 127.0.0.1; 10.0.0.100; };
-	listen-on-v6 port 53 { ::1; };
+	// listen-on-v6 port 53 { ::1; };
 	directory 	"/var/named";
 	dump-file 	"/var/named/data/cache_dump.db";
 	statistics-file "/var/named/data/named_stats.txt";
 	memstatistics-file "/var/named/data/named_mem_stats.txt";
-	// allow-query     { localhost; };
+	//allow-query 
 	allow-query     { localhost; 10.0.0.0/24; };
+	forwarders { 10.13.2.5; 10.13.2.7; };
 
 	/* 
 	 - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
@@ -64,7 +64,7 @@ zone "contoso.com" IN {
 	allow-update { none; };
 };
 
-zone "10.in-addr.arpa" IN {
+zone "10.in-addr.arpa.zone" IN {
 	type master;
 	file "10.in-addr.arpa.zone";
 	allow-update { none; };
@@ -73,8 +73,7 @@ zone "10.in-addr.arpa" IN {
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";
 " > /etc/named.conf
-echo "
-@	IN	SOA	vm1.contoso.com. root.contoso.com. (
+echo "@	IN	SOA	vm1.contoso.com. root.contoso.com. (
 						1	;Serial
 						3H	;Refresh
 						15M	;Retry
@@ -90,8 +89,7 @@ echo "
 101		IN	PTR	vm2.contoso.com.
 1		IN	PTR	gateway.contoso.com.
 " > /var/named/10.in-addr.arpa.zone
-echo "
-@       	IN  SOA     cs26-vm1.contoso.com root.contoso.com (
+echo "@       	IN  SOA     cs26-vm1.contoso.com root.contoso.com (
 						 1     ;Serial
 						 3H    ;Refresh
 						 15M   ;Retry
@@ -107,13 +105,12 @@ vm1			IN  A  10.0.0.100
 vm2			IN	A  10.0.0.101
 gateway		IN  A  10.0.0.1
 " > /var/named/contoso.com.zone
+firewall-cmd --zone=public --add-service=dns --permanent
+firewall-cmd --reload
 systemctl enable named
 systemctl start named
-firewall-cmd --permanent --zone=public --add-service=named 
-firewall-cmd --permanent --zone=public --add-service=dns
-systemctl reload dns
-systemctl reload named
-systemctl stop firewalld
+
+
 
 
 
