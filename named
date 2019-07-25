@@ -75,22 +75,18 @@ zone "10.in-addr.arpa.zone" IN {
 
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";' > /etc/named.conf
-echo '@	IN	SOA	vm1.contoso.com. root.contoso.com. (
+echo '@	IN	SOA	vm1.contoso.com. root.contoso.com (
 						1	;Serial
 						3H	;Refresh
 						15M	;Retry
 						1W	;Expire
 						1D	;Minimum TTL
 )
-
-;Name Server Information
 @	IN	NS	vm1.contoso.com.
-
-;PTR Records
 100		IN	PTR	vm1.contoso.com.
 101		IN	PTR	vm2.contoso.com.
 1		IN	PTR	gateway.contoso.com.' > /var/named/10.in-addr.arpa.zone
-echo '@       	IN  SOA     vm1.contoso.com root.contoso.com (
+echo '@       	IN  SOA     vm1.contoso.com. root.contoso.com (
 						 1     ;Serial
 						 3H    ;Refresh
 						 15M   ;Retry
@@ -98,10 +94,7 @@ echo '@       	IN  SOA     vm1.contoso.com root.contoso.com (
 						 1D    ;Minimum TTL
 )
 
-;Name Server Information
 @      		IN  NS vm1.contoso.com.
-
-;IP address of Name Server
 vm1			IN  A  10.0.0.100
 vm2			IN  A  10.0.0.101
 gateway			IN  A  10.0.0.1' > /var/named/contoso.com.zone
