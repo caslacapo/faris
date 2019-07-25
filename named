@@ -1,5 +1,7 @@
 nmcli con add con-name static type ethernet ifname eth0 ip4 10.0.0.100/24 gw4 10.0.0.1 ipv4.dns 10.13.2.5,10.13.2.7 autoconnect yes
 nmcli con mod eth0 autoconnect no
+nmcli con down eth0
+nmcli con up static
 hostnamectl set-hostname vm1.contoso.com
 echo 127.0.0.1 vm1 vm1.contoso.com >> /etc/hosts
 yum install bind bind-utils -y
@@ -102,3 +104,4 @@ firewall-cmd --zone=public --add-service=dns --permanent
 firewall-cmd --reload
 systemctl enable named
 systemctl start named
+nmcli con mod static ipv4.dns 127.0.0.1
