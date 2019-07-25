@@ -3,7 +3,7 @@ nmcli con mod eth0 autoconnect no
 hostnamectl set-hostname vm1.contoso.com
 echo 127.0.0.1 vm1 vm1.contoso.com >> /etc/hosts
 yum install bind bind-utils -y
-echo "//
+echo '//
 // named.conf
 //
 // Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
@@ -11,7 +11,7 @@ echo "//
 //
 // See /usr/share/doc/bind*/sample/ for example named configuration files.
 //
-// See the BIND Administrator's Reference Manual (ARM) for details about the
+/// See the BIND Administrators Reference Manual (ARM) for details about the
 // configuration located in /usr/share/doc/bind-{version}/Bv9ARM.html
 
 options {
@@ -74,9 +74,8 @@ zone "10.in-addr.arpa.zone" IN {
 };
 
 include "/etc/named.rfc1912.zones";
-include "/etc/named.root.key";
-" > /etc/named.conf
-echo "@	IN	SOA	vm1.contoso.com. root.contoso.com. (
+include "/etc/named.root.key";' > /etc/named.conf
+echo '@	IN	SOA	vm1.contoso.com. root.contoso.com. (
 						1	;Serial
 						3H	;Refresh
 						15M	;Retry
@@ -90,9 +89,8 @@ echo "@	IN	SOA	vm1.contoso.com. root.contoso.com. (
 ;PTR Records
 100		IN	PTR	vm1.contoso.com.
 101		IN	PTR	vm2.contoso.com.
-1		IN	PTR	gateway.contoso.com.
-" > /var/named/10.in-addr.arpa.zone
-echo "@       	IN  SOA     vm1.contoso.com root.contoso.com (
+1		IN	PTR	gateway.contoso.com.' > /var/named/10.in-addr.arpa.zone
+echo '@       	IN  SOA     vm1.contoso.com root.contoso.com (
 						 1     ;Serial
 						 3H    ;Refresh
 						 15M   ;Retry
@@ -106,14 +104,8 @@ echo "@       	IN  SOA     vm1.contoso.com root.contoso.com (
 ;IP address of Name Server
 vm1			IN  A  10.0.0.100
 vm2			IN  A  10.0.0.101
-gateway			IN  A  10.0.0.1
-" > /var/named/contoso.com.zone
+gateway			IN  A  10.0.0.1' > /var/named/contoso.com.zone
 firewall-cmd --zone=public --add-service=dns --permanent
 firewall-cmd --reload
 systemctl enable named
 systemctl start named
-
-
-
-
-
