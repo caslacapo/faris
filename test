@@ -1,0 +1,6 @@
+nmcli con add con-name static type ethernet ifname eth0 ip4 10.3.13.26/22 gw4 10.3.12.1 autoconnect yes ipv4.dns 127.0.0.1
+nmcli con down eth0
+nmcli con up static
+hostnamectl set-hostname cs26-vm1.contoso.com
+echo 127.0.0.1 cs26-vm1.contoso.com cs26-vm1 >> /etc/hosts
+nmcli con mod eth0 autoconnect no
