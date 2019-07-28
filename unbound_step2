@@ -1,0 +1,4 @@
+ausearch -c 'unbound' --raw | audit2allow -M my-unbound
+semodule -i my-unbound.pp
+firewall-cmd --zone=public --add-service=dns --permanent
+firewall-cmd --reload
