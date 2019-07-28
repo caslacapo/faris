@@ -1,5 +1,5 @@
 yum -y install nfs-utils
-echo '/nfsshare *contoso.com(rw,no_root_squash)'
+echo "/nfsshare *contoso.com(rw,no_root_squash)" > /etc/exports 
 systemctl start nfs-server
 systemctl enable nfs-server
 mkdir /nfsshare
