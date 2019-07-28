@@ -879,4 +879,8 @@ forward-zone:
 # view:
 #	name: "anotherview"
 #	local-zone: "example.com" refuse' > /etc/unbound/unbound.conf
+nmcli con mod static ipv4.dns 127.0.0.1
+nmcli con down static
+nmcli con up static
 systemctl restart unbound
+
