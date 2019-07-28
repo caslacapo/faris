@@ -6,10 +6,10 @@ nmcli con add type team con-name team0 ifname team0 config '{"runner": {"name": 
 nmcli con add type team-slave ifname eth0 master team0 con-name team0-eth0
 nmcli con add type team-slave ifname eth1 master team0 con-name team0-eth1
 nmcli con down team0
-nmcli con mod team0 ipv4 method manual
 nmcli con mod team0 ipv4.method manual
 nmcli con down team0
 nmcli con up team0
 hostnamectl set-hostname vm1.contoso.com
 echo 127.0.0.1 vm1 vm1.contoso.com >> /etc/hosts
 echo 10.0.0.101 vm2 vm2.contoso.com >> /etc/hosts
+reboot
