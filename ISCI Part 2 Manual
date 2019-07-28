@@ -24,3 +24,15 @@ add at the end
 iscsi		-fstype=xfs											:/dev/sda1/UUID
 nfsshare	-fstype=nfs,rw										vm1:/nfsshare
 smbshare	-fstype=cifs,rw,credentials=/root/smb-cred.txt 		://vm1/smbshare
+
+
+yum -y install samba-client cifs-utils
+
+touch ~/smb-cred.txt
+chmod 600 ~/smb-cred.txt
+vi ~/smb-cred.txt
+##in the file add
+username=uone
+password=Pa11word
+
+systemctl restart autofs
