@@ -7,3 +7,5 @@ echo 127.0.0.1 vm2 vm2.contoso.com >> /etc/hosts
 yum install -y unbound
 systemctl enable unbound
 systemctl start unbound
+firewall-cmd --zone=public --add-service=dns --permanent
+firewall-cmd --reload
