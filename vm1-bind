@@ -72,7 +72,7 @@ zone "0.0.10.in-addr.arpa" IN {
 
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";' > /etc/named.conf
-echo '@	IN 	SOA	cs01-vm1.contoso.com. root.contoso.com. (
+echo '@	IN 	SOA	vm1.contoso.com. root.contoso.com. (
 						1	;Serial
 						1H	;Refresh
 						15M	;Retry
@@ -80,11 +80,11 @@ echo '@	IN 	SOA	cs01-vm1.contoso.com. root.contoso.com. (
 						1D	;Minimum TTL
 )
 
-@		IN	NS	cs01-vm1.contoso.com.
-100		IN	PTR	cs01-vm1.contoso.com.
-101		IN	PTR	cs01-vm2.contoso.com.
+@		IN	NS	vm1.contoso.com.
+100		IN	PTR	vm1.contoso.com.
+101		IN	PTR	vm2.contoso.com.
 1		IN	PTR	gateway.contoso.com.' > /var/named/0.0.10.in-addr.arpa.zone
-echo '@	IN 	SOA	cs01-vm1.contoso.com. root.contoso.com. (
+echo '@	IN 	SOA	vm1.contoso.com. root.contoso.com. (
 						1	;Serial
 						1H	;Refresh
 						15M	;Retry
@@ -92,12 +92,13 @@ echo '@	IN 	SOA	cs01-vm1.contoso.com. root.contoso.com. (
 						1D	;Minimum TTL
 )
 
-@		IN	NS	cs01-vm1.contoso.com.
-cs01-vm1	IN	A	10.0.0.100
+@		IN	NS	vm1.contoso.com.
+vm1	IN	A	10.0.0.100
 gateway		IN	A	10.0.0.1
-cs01-vm2	IN	A	10.0.0.101
+vm2	IN	A	10.0.0.101
 router		IN	CNAME	gateway.contoso.com.' > /var/named/contoso.com.zone
 firewall-cmd --zone=public --add-service=dns --permanent
 firewall-cmd --reload
 systemctl enable named
 systemctl start named
+reboot
