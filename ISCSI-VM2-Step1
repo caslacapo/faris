@@ -1,5 +1,3 @@
-yum install iscsi-initiator-utils -y
-iscsiadm -m discovery -t sendtargets -p 10.0.0.100:3260
 echo 'InitiatorName=iqn.2014-06.com.example:vm2' > /etc/iscsi/initiatiorname.iscsi
 systemctl restart iscsid
 iscsiadm -m node -T iqn.2014-06.com.example:remotedisk1 -p 10.0.0.100:3260 -l
