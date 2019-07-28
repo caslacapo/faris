@@ -879,4 +879,4 @@ forward-zone:
 # view:
 #	name: "anotherview"
 #	local-zone: "example.com" refuse' > /etc/unbound/unbound.conf
-sytemctl restart unbound
+systemctl restart unbound
