@@ -103,3 +103,4 @@ firewall-cmd --reload
 systemctl enable named
 systemctl start named
 nmcli con mod team0 ipv4.dns 127.0.0.1
+reboot
