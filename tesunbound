@@ -5,9 +5,9 @@ nmcli con up static
 hostnamectl set-hostname vm1.contoso.com
 echo 127.0.0.1 vm2 vm2.contoso.com >> /etc/hosts
 yum install -y unbound
-firewall-cmd --zone=public --add-service=dns --permanent
-firewall-cmd --reload
 systemctl enable unbound
 systemctl start unbound
 ausearch -c 'unbound' --raw | audit2allow -M my-unbound
 semodule -i my-unbound.pp
+firewall-cmd --zone=public --add-service=dns --permanent
+firewall-cmd --reload
