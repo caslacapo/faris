@@ -1,4 +1,4 @@
-yum install targetcli -y
+yum -y install targetcli 
 targetcli 
 cd /backstores/block
 create block1 /dev/vdb
