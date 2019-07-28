@@ -18,15 +18,30 @@ mkfs.xfs /dev/sda1
 mkdir /mnt/iscsi
 mount -t xfs /dev/sda1 /mnt/iscsi
 df -h
-blkid
-copy UID
 umount /dev/sda1
+
+----- install autofs
+yum -y install autofs
+
+vi /etc/auto.master
+
+comment /misc 	/etc/auto.master
+/mnt 	/etc/auto.misc
+:wq
+
+------
+blkid and copy UUID
 
 vi /etc/auto.misc
 
 add at the end
 
-iscsi		-fstype=xfs											:/dev/sda1/UUID
+iscsi	-fstype=xfs		:/dev/sda1/UUID
+
+-----------------------------------------------------------
+add at the end
+
+iscsi		-fstype=xfs										    	:/dev/sda1/UUID
 nfsshare	-fstype=nfs,rw										vm1:/nfsshare
 smbshare	-fstype=cifs,rw,credentials=/root/smb-cred.txt 		://vm1/smbshare
 
