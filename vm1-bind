@@ -102,4 +102,4 @@ firewall-cmd --zone=public --add-service=dns --permanent
 firewall-cmd --reload
 systemctl enable named
 systemctl start named
-nmcli con mod static ipv4.dns 127.0.0.1
+nmcli con mod team0 ipv4.dns 127.0.0.1
