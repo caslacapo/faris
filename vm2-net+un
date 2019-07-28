@@ -2,10 +2,11 @@ nmcli con add con-name static type ethernet ifname eth0 ip4 10.0.0.101/24 gw4 10
 nmcli con mod eth0 autoconnect no
 nmcli con down eth0
 nmcli con up static
-hostnamectl set-hostname vm1.contoso.com
+hostnamectl set-hostname vm2.contoso.com
 echo 127.0.0.1 vm2 vm2.contoso.com >> /etc/hosts
 yum install -y unbound
 systemctl enable unbound
 systemctl start unbound
 firewall-cmd --zone=public --add-service=dns --permanent
 firewall-cmd --reload
+reboot
