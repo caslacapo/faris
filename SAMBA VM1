@@ -1,7 +1,7 @@
 yum -y install samba
 
 mkdir /smbshare
-semanage fcontext -a -t samba_share_t '/smbshare(/.*)?/
+semanage fcontext -a -t samba_share_t '/smbshare(/.*)?/'
 restorecon -vvFR /smbshare
 setsebool -P samba_export_all_rw=1
 vi /etc/samba/smb.conf
@@ -42,7 +42,7 @@ VM2
 yum -y install samba-client cifs-utils
 cd root
 mkdir /testdir
-mount -o username=uone //vm1/smbshare /testdir
+mount -o username=uone,password=Pa11word //vm1/smbshare /testdir
 touch ~/smb-cred.txt
 chmod 600 ~/smb-cred.txt
 vi ~/smb-cred.txt
