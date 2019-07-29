@@ -1,4 +1,8 @@
 yum install iscsi-initiator-utils -y
+systemctl enable iscsid
+systemctl enable iscsi
+systemctl restart iscsid
+systemctl restart iscsi
 iscsiadm -m discovery -t sendtargets -p 10.0.0.100:3260
 echo "InitiatorName=iqn.2014-06.com.example:remotedisk1" > /etc/iscsi/initiatorname.iscsi
 systemctl restart iscsid
